@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>partycat</title>
+
+    <link rel="stylesheet" href="/css/grape_juice.css">
+    <link rel="icon" href="/imgs/partycat.png">
+
+    <!-- libs -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="bg-container">
+    </div>
+    <div class="vcard">
+        <img id="partycat" src="/imgs/partycat.png" alt="partycat">
+        <a href="" class="name">partycat</a>
+        <ul id="socials">
+            <li class="social">
+                <a class="card" href="https://t.me/partycatt">
+                    <img src="/imgs/tg.svg" alt="tg">
+                </a>
+            </li>
+            <!-- <li class="social">
+                <a class="card" href="https://twitter.com/mage_sol">
+                    <img src="/imgs/twt.svg" alt="twt">
+                </a>
+            </li> -->
+        </ul>
+
+        <p class="ca">sol: *</p>
+        <div class="vcard">
+            <div class="hcard">
+                <table id="txs">
+                    <thead>
+                      <tr>
+                        <th>wallet</th>
+                        <th>sol</th>
+                        <th>partycat</th>
+                        <th>tx</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- fetched from cdn -->
+                    </tbody>
+                </table>
+                <div class="vcard about">
+                    <p class="name2">about</p>
+                    <p>lets throw my little yumi the best birthday party ever on raydium :3</p>
+                </div>
+            </div>
+        </div>
+          
+    </div>
+    <script defer>
+        // let chart = document.getElementById('chart');
+        // chart.contentWindow.document.body.style.backgroundColor = '#DBCDCC';
+        // let fetch_trades = (url="", interval=2) => {
+
+        // };
+
+        $(document).ready(() => {
+
+            function trim(word, max_len=6) {
+                return word.length > max_len ? word.slice(0, max_len) + '...' : word;
+            }
+
+            // update the tx tbl
+            let update_txs = data => {
+                // clear tbl
+                $('#txs tbody').empty();
+
+                let rows = 12;
+                let cols = 4;
+                let max_len = 6;
+
+                // loop over top 10 most recent txs
+                for (let i = 0; i < Math.min(data.length, rows); i++) {
+                let tx = data[i];
+                let wallet = trim(tx.user);
+                let sol = tx.sol_amount / 1e9;
+                let nene = tx.token_amount / 1e12;
+                let buy_sell = tx.is_buy ? '&#10084' : 'sell';
+
+
+
+                // append txs to tbl
+                $('#txs tbody').append(`
+                    <tr>
+                    <td>${wallet}</td>
+                    <td>${sol}</td>
+                    <td>${nene}m</td>
+                    <td>${buy_sell}</td>
+                    </tr>
+                `);
+                }
+            }
+
+            let refresh = 2000;
+
+            let ca = "";
+            let url = 'https://client-api-2-74b1891ee9f9.herokuapp.com/trades/' + ca + "?limit=200&offset=0"; 
+
+            let fetch_txs = url => {
+                $.getJSON(url, data => {
+                    update_txs(data);
+                    console.log('here');
+                });
+            };
+            fetch_txs(url);
+            setInterval(() => {fetch_txs(url);}, refresh);
+        });
+    </script>
+</body>
+</html>
