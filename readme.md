@@ -2,4 +2,4 @@
 hosting for [partycat.lol](https://partycat.lol)
 
 ## partycat
-![partycat](imgs/partycat.jpg)  
+![partycat](imgs/party_cat.jpg)  
