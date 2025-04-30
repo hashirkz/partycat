@@ -1,5 +1,5 @@
-<!-- # about  
-hosting for [mage.wtf](https://mage.wtf)
+# about  
+hosting for [partycat.lol](https://partycat.lol)
 
-## mage 
-![mage](imgs/mage.gif)   -->
+## partycat
+![partycat](imgs/partycat.jpg)  
